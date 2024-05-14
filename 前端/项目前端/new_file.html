@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	
+	<style>
+		body {
+		    background-image: url('img/bj1.jpeg');  /* 换成您的图片URL */
+		    background-repeat: no-repeat;  /* 如果您不希望图片重复显示，可以添加这行 */
+		    background-size: cover;  /* 这会让背景图片覆盖整个页面 */
+		}
+	</style>
+<head>
+    <title>登录界面</title>
+</head>
+<body>
+    <div id="container">
+        <h2>医链</h2>
+        <form action="/login" method="post">
+            <label for="username">用户名:</label><br>
+            <input type="text" id="username" name="username"><br><br>
+            <label for="password">密码:</label><br>
+            <input type="password" id="password" name="password"><br><br>
+			<head>
+			<meta charset="utf-8"> 
+			<title>基础教程(cainiaoplus.com)</title>
+			<style type="text/css">
+			#div1 {width:50px;height:30px;padding:10px;border:1px solid #aaaaaa;}
+			</style>
+			<script>
+			function allowDrop(ev)
+			{
+			    ev.preventDefault();
+			}
+			
+			function drag(ev)
+			{
+			    ev.dataTransfer.setData("Text",ev.target.id);
+			}
+			
+			function drop(ev)
+			{
+			    ev.preventDefault();
+			    var data=ev.dataTransfer.getData("Text");
+			    ev.target.appendChild(document.getElementById(data));
+			}
+			</script>
+			</head>
+			<body>
+			
+			<p>拖动 滑块来验证是否为真人 :</p>
+			
+			<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+			<br>
+			<img id="drag1" src="/static/images/logo.png" draggable="true" ondragstart="drag(event)" width="336" height="69">
+			
+			</body>
+            <input type="submit" value="登录"> <br><br>
+        </form>
+    </div>
+</body>
+</html>
