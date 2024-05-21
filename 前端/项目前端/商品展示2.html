@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		body {
+		    background-image: url('img/bj1.jpeg');  /* 换成您的图片URL */
+		    background-repeat: no-repeat;  /* 如果您不希望图片重复显示，可以添加这行 */
+		    background-size: cover;  /* 这会让背景图片覆盖整个页面 */
+		}
+	</style>
+    <title>动态商品展示</title>
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            padding: 10px;
+        }
+        .grid-container > div {
+            border: 1px solid black;
+            padding: 20px;
+            text-align: center;
+        }
+        img {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<h1>商品展示</h1>
+
+<div id="grid-container" class="grid-container">
+    <!-- 这里将通过JavaScript动态插入商品展示格子 -->
+</div>
+
+<script>
+    // 假设我们有一个包含25个商品数据的数组
+    var products = [];
+    for (var i = 1; i <= 25; i++) {
+        products.push({
+            imgSrc: "http://placehold.it/100x100",
+            name: "商品名称" + i,
+            price: "￥价格" + i
+        });
+    }
+
+    // 获取商品展示容器元素
+    var container = document.getElementById("grid-container");
+
+    // 遍历商品数据数组，为每个商品生成HTML结构并添加到容器里
+    products.forEach(function(product) {
+        container.innerHTML += `
+            <div>
+                <img src="${product.imgSrc}" alt="商品图片">
+                <p>${product.name}</p>
+                <p>${product.price}</p>
+            </div>
+        `;
+    });
+</script>
+
+</body>
+</html>

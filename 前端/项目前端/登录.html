@@ -1,24 +1,70 @@
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>登录页面</title>
-		<link type="text/css" href="../css/task_twenty.css" rel="stylesheet">
-	</head>
-	<body>
-		<form action="#" method="post">
-			<div class="form-control">
-				<label for="username">账号</label>
-				<input type="text" id="username" name="username" class="number" pattern="^[a-zA-Z][a-zA-Z0-9][]$" required />
-			</div>
-			<div class="form-control">
-				<label for="password">密码</label>
-				<input type="password" id="password" name="pas" class="pas" pattern="^[a-zA-Z]\w{5,17}$" required/>
-			<button class="loginbtn" >登录</button>
-		</form>
-	</body>
-
+	
+<head>
+	<img src=https://p16-flow-sign-va.ciciai.com/ocean-cloud-tos-us/b9deeab9429b44c0b1c05968eaa28bac.png~tplv-6bxrjdptv7-image.png?rk3s=18ea6f23&x-expires=1747222530&x-signature=AT5RjDM1DbkmwWh8mVF%2F88%2BSKkE%3D alt="" width="150" height="300"/>
+	
+    <title>登录界面</title>
+	
+	
+	<style>
+		body {
+		    background-image: url('img/bj1.jpeg');  /* 换成您的图片URL */
+		    background-repeat: no-repeat;  /* 如果您不希望图片重复显示，可以添加这行 */
+		    background-size: cover;  /* 这会让背景图片覆盖整个页面 */
+		}
+	</style>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .login-container {
+            width: 300px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>登录</h2>
+        <form>
+			<input type="text" placeholder="邮箱" required>
+            <input type="text" placeholder="用户名" required>
+            <input type="password" placeholder="密码" required>
+            <button type="submit">登录</button>
+        </form>
+    </div>
+</body>
 </html>
 
                             

@@ -1,37 +1,60 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>购物网页</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .product-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-        .product-card {
-            border: 1px solid #000;
-            margin: 10px;
-            padding: 10px;
-            width: 200px;
-        }
-    </style>
-</head>
-<body>
-    <h2>欢迎来到我们的在线商店</h2>
-  
-    <div class="product-grid">
-        <div class="product-card">
-            <img src="image_url" alt="产品图片">
-            <h2>产品名</h2>
-            <p>产品描述</p>
-            <button>购买</button>
+<section class="shortcut">
+    <div class="w">
+        <div class="fl">
+            <ul>
+                <li>品优购欢迎您！&nbsp;</li>
+                <li>
+                    <a href="#">请登录</a> &nbsp; <a href="register.html" class="style_red">免费注册</a>
+                </li>
+            </ul>
         </div>
-
-        <!-- 复制上面的 .product-card 块，然后修改为其它产品的信息-->
+        <div class="fr">
+            <ul>
+                <li>我的订单</li>
+                <li></li>
+                <li class="arrow-icon">我的品优购</li>
+                <li></li>
+                <li>品优购会员</li>
+                <li></li>
+                <li>企业采购</li>
+                <li></li>
+                <li class="arrow-icon">关注品优购</li>
+                <li></li>
+                <li class="arrow-icon">客户服务</li>
+                <li></li>
+                <li class="arrow-icon">网站导航</li>
+            </ul>
+        </div>
     </div>
-  
-</body>
-</html>
+
+<header class="header w">
+    <!-- logo模块 -->
+    <div class="logo">
+        <h1>
+            <a href="index.html" title="品优购商城">品优购商城</a>
+        </h1>
+    </div>
+    <!-- search搜索模块 -->
+    <div class="search">
+        <input type="search" name="" id="" placeholder="语言开发">
+        <button>搜索</button>
+    </div>
+    <!-- hotwords模块制作 -->
+    <div class="hotwords">
+        <a href="#" class="style_red">优惠购首发</a>
+        <a href="#">亿元优惠</a>
+        <a href="#">9.9元团购</a>
+        <a href="#">美满99减30</a>
+        <a href="#">办公用品</a>
+        <a href="#">电脑</a>
+        <a href="#">通信</a>
+    </div>
+    <!-- 购物车模块 -->
+    <div class="shopcar">
+        我的购物车
+        <i class="count">8</i>
+    </div>
+</header>
+

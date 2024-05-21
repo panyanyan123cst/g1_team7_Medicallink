@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<img src=https://p16-flow-sign-va.ciciai.com/ocean-cloud-tos-us/b9deeab9429b44c0b1c05968eaa28bac.png~tplv-6bxrjdptv7-image.png?rk3s=18ea6f23&x-expires=1747222530&x-signature=AT5RjDM1DbkmwWh8mVF%2F88%2BSKkE%3D alt="" width="65" height="65"/>
+		
+	  <style>
+	    .search-box {
+	      width: 200px;
+	      height: 30px;
+	      margin: 10px;
+	      border: 1px solid #000;
+	    }
+	    .search-btn {
+	      height: 34px;
+	      background-color: #4CBB17;
+	      color: white;
+	    }
+	  </style>
+	</head>
+	<body>
+	
+	<form action="/search" method="get">
+	  <input class="search-box" type="text" name="q" placeholder="搜索...">
+	  <input class="search-btn" type="submit" value="搜索">
+	</form>
+	
+	</body>
+	</html>
+	
+	<style>
+		body {
+		    background-image: url('img/bj1.jpeg');  /* 换成您的图片URL */
+		    background-repeat: no-repeat;  /* 如果您不希望图片重复显示，可以添加这行 */
+		    background-size: cover;  /* 这会让背景图片覆盖整个页面 */
+		}
+	</style>
+	
+    <title>网页导航示例</title>
+    <style>
+        /* 添加一些简单的样式 */
+        ul.nav-menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+        
+        ul.nav-menu li {
+            float: left;
+        }
+        
+        ul.nav-menu li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        /* 鼠标悬停时改变背景色 */
+
+        ul.nav-menu li a:hover {
+            background-color: #111;
+        }
+    </style>
+</head>
+<body>
+    <ul class="nav-menu">
+        <li><a href="#home">首页</a></li>
+        <li><a href="#news">皮肤管理</a></li>
+        <li><a href="#contact">面部微调</a></li>
+        <li><a href="#chouzi">塑形抽脂</a></li>
+		 <li><a href="about、">关于我们</a></li>
+    </ul>
+	<!DOCTYPE html>
+	<html>
+	<head>
+	    <title>滚动展示栏</title>
+	    <style>
+	        #slider {
+	            width: 400px;
+	            height: 200px;
+	            overflow: hidden;
+	            position: relative;
+	        }
+	
+	        #slider img {
+	            width: 100%;
+	            height: 100%;
+	            display: none;
+	            position: absolute;
+	        }
+	
+	        #slider img.active {
+	            display: block;
+	        }
+	    </style>
+	</head>
+	<body>
+	    <div id="slider">
+	        <img class="active" src="img/滚动展示1.jpg" alt="">
+	        <img src="img/滚动展示2.jpg" alt="Image 2">
+	        <img src="img/滚动展示3.jpg" alt="Image 3">
+			<img src="img/滚动展示4.jpg" alt="Image 3">
+	    </div>
+	
+	    <script>
+	        var slideIndex = 0;
+	        carousel();
+	
+	        function carousel() {
+	            var i;
+	            var x = document.getElementById("slider").getElementsByTagName("img");
+	            for (i = 0; i < x.length; i++) {
+	                x[i].style.display = "none"; 
+	                x[i].classList.remove("active");
+	            }
+	            slideIndex++;
+	            if (slideIndex > x.length) {slideIndex = 1}
+	            x[slideIndex-1].style.display = "block"; 
+	            x[slideIndex-1].classList.add("active");
+	            setTimeout(carousel, 2000); // 每2秒钟改变图片
+	        }
+	    </script>
+	</body>
+	</html>
+</body>
+</html>

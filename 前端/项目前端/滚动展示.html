@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>滚动展示栏</title>
+    <style>
+        #slider {
+            width: 300px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #slider img {
+            width: 100%;
+            height: 100%;
+            display: none;
+            position: absolute;
+        }
+
+        #slider img.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="slider">
+        <img class="active" src="http://placehold.it/300x200/1" alt="Image 1">
+        <img src="https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=图片&step_word=&hs=0&pn=6&spn=0&di=7355526631391232001&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=undefined&cs=3332525285%2C3269918228&os=2719321902%2C1944236664&simid=75138988%2C787146986&adpicid=0&lpn=0&ln=1757&fr=&fmq=1715789363325_R&fm=&ic=undefined&s=undefined&hd=undefined&latest=undefined&copyright=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=https%3A%2F%2Funivs-news-1256833609.file.myqcloud.com%2Fresource_files%2Fcont_pub%2FI%2FAIJOI%2FJ3SLIQIDP5BOND3A2T57W6BTOI.png&fromurl=ippr_z2C%24qAzdH3FAzdH3F1xf_z%26e3B45j_z%26e3B25e_z%26e3BvgAzdH3FzxAzdH3FwAzdH3Fxyi_xyi_1kfy1xAzdH3Fdnam8dAzdH3F8b9nnb8_z%26e3Bfip4s%3Ff576vj%3Dsixy&gsm=1e&rpstart=0&rpnum=0&islist=&querylist=&nojc=undefined&dyTabStr=MCwzLDEsMiw2LDQsNSw4LDcsOQ%3D%3D&lid=9020897907677286983" alt="Image 2">
+        <img src="http://placehold.it/300x200/3" alt="Image 3">
+    </div>
+
+    <script>
+        var slideIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementById("slider").getElementsByTagName("img");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none"; 
+                x[i].classList.remove("active");
+            }
+            slideIndex++;
+            if (slideIndex > x.length) {slideIndex = 1}
+            x[slideIndex-1].style.display = "block"; 
+            x[slideIndex-1].classList.add("active");
+            setTimeout(carousel, 2000); // 每2秒钟改变图片
+        }
+    </script>
+</body>
+</html>

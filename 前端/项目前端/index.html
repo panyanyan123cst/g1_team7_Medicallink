@@ -1,42 +1,75 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title></title>
-	</head>
-	<body>
-		<h1>医美有风险</h1>
-		<img src="img/a1.jpeg" alt="" />
-		<img src="img/a2.jpeg" alt="" />
-		<ul class="mui-table-view">
-			<li class="mui-table-view-cell mui-media">
-				<a href="javascript:;">
-					<img class="mui-media-object mui-pull-right" src="">
-					<div class="mui-media-body">
-						脸部调整
-						<p class="mui-ellipsis">打造自信你爱的你</p>
-					</div>
-				</a>
-			</li>
-			<li class="mui-table-view-cell mui-media">
-				<a href="javascript:;">
-					<img class="mui-media-object mui-pull-right" src="">
-					<div class="mui-media-body">
-						瘦身抽脂
-						<p class="mui-ellipsis">快速回到轻盈时刻</p>
-					</div>
-				</a>
-			</li>
-			<li class="mui-table-view-cell mui-media">
-				<a href="javascript:;">
-					<img class="mui-media-object mui-pull-right" src="">
-					<div class="mui-media-body">
-					   体态矫正
-						<p class="mui-ellipsis">让您回归正常体态</p>
-					</div>
-				</a>
-			</li>
-		</ul>
-		<h2> </h2>
-	</body>
+<head>
+	<style>
+		body {
+		    background-image: url('img/bj1.jpeg');  /* 换成您的图片URL */
+		    background-repeat: no-repeat;  /* 如果您不希望图片重复显示，可以添加这行 */
+		    background-size: cover;  /* 这会让背景图片覆盖整个页面 */
+		}
+	</style>
+<title>登录页面</title>
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+.container {
+  width: 300px;
+  padding: 16px;
+  background-color: white;
+  margin: 0 auto;
+  margin-top: 100px;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+.btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+.btn:hover {
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <label for="username"><b>用户名</b></label>
+  <input type="text" placeholder="输入用户名" name="username" required>
+
+  <label for="password"><b>密码</b></label>
+  <input type="password" placeholder="输入密码" name="password" required>
+
+  <button type="submit" class="btn">登录</button>
+  <label>
+    <input type="checkbox" checked="checked" name="remember"> 记住我
+  </label>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <button type="button" class="btn cancelbtn">取消</button>
+    <span class="password"><a href="#">忘记密码?</a></span>
+  </div>
+  <div class="container">
+    <p>还没有账号? <a href="#">注册一个!</a></p>
+  </div>
+  
+</div>
+
+</body>
 </html>
