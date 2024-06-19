@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" href="./resources/img/logo.png" />
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="renderer" content="webkit">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<script src="./resources/js/jquery-3.5.0.min.js"></script>
+		<script src="./resources/js/vue-2.7.14.js"></script>
+		<link rel="stylesheet" href="./resources/css/element-ui-2.15.14.css" />
+		<script src="./resources/js/element-ui-2.15.14.js"></script>
+		<link rel="stylesheet" href="./resources/css/common.css" />
+		<script src="./resources/js/common.js"></script>
+		<script src="./resources/js/auth.js"></script>
+		<script src="./resources/js/utils.js"></script>
+
+		<link rel="stylesheet" href="./resources/css/index.css" />
+		<script src="./resources/js/index.js"></script>
+
+	</head>
+
+	<body>
+		<el-container id="app" v-cloak>
+			<!-- 顶部导航栏 -->
+			<el-header>
+				<div class="logo-wrap">
+					<img src="./resources/img/logo.png" />
+					<span class="logo-title" v-text="global.projectName"></span>
+				</div>
+
+
+				<el-menu :default-active="navId" mode="horizontal" @select="navClick">
+					<el-submenu index="user">
+						<template slot="title">
+							<div class="nav-user-item">
+								<img :src="$.http.getFileUrl($.auth.getUserInfo(false).avatar)" class="avatar" />
+								<span v-text="$.auth.getUserInfo(false).name"></span>
+							</div>
+						</template>
+						<el-menu-item index="my">个人中心</el-menu-item>
+						<el-menu-item index="logout">退出登录</el-menu-item>
+					</el-submenu>
+				</el-menu>
+			</el-header>
+			<el-container>
+				<el-aside width="200px">
+					<el-menu class="aside-menu" :default-active="asideMenuId" @select="menuClick">
+						<template v-for="(item, index) in asideMenuAuth">
+							<el-menu-item v-if="!item.child && $.auth.checkRole(item.role,false)" :key="index"
+								:index="item.id">
+								<i v-if="item.icon" :class="item.icon"></i>
+								<template slot="title">{{item.title}}</template>
+							</el-menu-item>
+							<el-submenu v-else-if="$.auth.checkRole(item.role,false)" :index="item.id" :key="index">
+								<i v-if="item.icon" :class="item.icon"></i>
+								<template slot="title">{{item.title}}</template>
+								<el-menu-item v-for="(child, childIndex) in item.child" :key="childIndex"
+									:index="child.id" v-if="$.auth.checkRole(child.role,false)">
+									<i v-if="child.icon" :class="child.icon"></i>
+									<template slot="title">{{child.title}}</template>
+								</el-menu-item>
+							</el-submenu>
+						</template>
+					</el-menu>
+				</el-aside>
+				<!-- 内容区 -->
+				<el-main>
+					<iframe id="app-iframe" class="app-iframe" scrolling="auto" frameborder="0" :src="iframeUrl"></iframe>
+				</el-main>
+			</el-container>
+		</el-container>
+	</body>
+
+</html>

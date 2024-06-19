@@ -1,48 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>商品展示</title>
-    <style>
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            padding: 10px;
-        }
-        .grid-container > div {
-          border: 1px solid black;
-          padding: 20px;
-          text-align: center;
-        }
-        img {
-            width: 100%;
-        }
-    </style>
+<style>
+    .product-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .product-card {
+        border: 1px solid #ccc;
+        padding: 20px;
+        width: calc(33.33% - 40px); /* 分成三列 */
+    }
+</style>
 </head>
 <body>
 
-<h1>商品展示</h1>
+<h2>商品展示</h2>
 
-<div class="grid-container">
-    <!-- 商品1 -->
-    <div>
-        <img src="http://placehold.it/100x100" alt="商品图片">
-        <p>商品名称1</p>
-        <p>￥价格1</p>
-    </div>
-    <!-- 商品2 -->
-    <div>
-        <img src="http://placehold.it/100x100" alt="商品图片">
-        <p>商品名称2</p>
-        <p>￥价格2</p>
-    </div>
-    <!-- ... -->
-    <!-- 商品25 -->
-    <div>
-        <img src="http://placehold.it/100x100" alt="商品图片">
-        <p>商品名称25</p>
-        <p>￥价格25</p>
-    </div>
+<div class="product-grid">
+  <div class="product-card">
+    <img src="https://via.placeholder.com/150" alt="商品图片" style="width:100%">
+    <h3>商品1</h3>
+    <p class="price">￥100</p>
+    <p>这是商品1的描述...</p>
+  </div>
+  <div class="product-card">
+    <img src="https://via.placeholder.com/150" alt="商品图片" style="width:100%">
+    <h3>商品2</h3>
+    <p class="price">￥200</p>
+    <p>这是商品2的描述...</p>
+  </div>
+  <div class="product-card">
+    <img src="https://via.placeholder.com/150" alt="商品图片" style="width:100%">
+    <h3>商品3</h3>
+    <p class="price">￥300</p>
+    <p>这是商品3的描述...</p>
+  </div>
 </div>
 
 </body>

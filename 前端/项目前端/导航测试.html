@@ -46,5 +46,44 @@
         <li><a href="#contact">联系我们</a></li>
         <li><a href="#about">关于我们</a></li>
     </ul>
+	<style>
+	    .product-grid {
+	        display: flex;
+	        flex-wrap: wrap;
+	        gap: 20px;
+	    }
+	    .product-card {
+	        border: 1px solid #ccc;
+	        padding: 20px;
+	        width: calc(33.33% - 40px); /* 分成三列 */
+	    }
+	</style>
+	</head>
+	<body>
+	
+	<h2>商品展示</h2>
+	
+	<div class="product-grid">
+	  <div class="product-card">
+	    <img src="https://via.placeholder.com/150" alt="商品图片" style="width:100%">
+	    <h3>商品1</h3>
+	    <p class="price">￥100</p>
+	    <p>这是商品1的描述...</p>
+	  </div>
+	  <div class="product-card">
+	    <img src="https://via.placeholder.com/150" alt="商品图片" style="width:100%">
+	    <h3>商品2</h3>
+	    <p class="price">￥200</p>
+	    <p>这是商品2的描述...</p>
+	  </div>
+	  <div class="product-card">
+	    <img src="https://via.placeholder.com/150" alt="商品图片" style="width:100%">
+	    <h3>商品3</h3>
+	    <p class="price">￥300</p>
+	    <p>这是商品3的描述...</p>
+	  </div>
+	</div>
+	
+	</body>
 </body>
 </html>

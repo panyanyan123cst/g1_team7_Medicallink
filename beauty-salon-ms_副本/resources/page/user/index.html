@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" href="../../../resources/img/logo.png" />
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<script src="../../../resources/js/jquery-3.5.0.min.js"></script>
+	<script src="../../../resources/js/vue-2.7.14.js"></script>
+	<link rel="stylesheet" href="../../../resources/css/element-ui-2.15.14.css" />
+	<script src="../../../resources/js/element-ui-2.15.14.js"></script>
+	<link rel="stylesheet" href="../../../resources/css/common.css" />
+	<script src="../../../resources/js/common.js"></script>
+	<script src="../../../resources/js/auth.js"></script>
+	<script src="../../../resources/js/utils.js"></script>
+
+	<link rel="stylesheet" href="./css/index.css" />
+	<script src="./js/index.js"></script>
+	<script src="../../../resources/js/pageBase.js"></script>
+	
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<el-form v-if="!$.obj.isEmpty(searchFormConfig)" size="small" :label-width="searchFormConfig.labelWidth" :inline="true"
+			:model="searchForm">
+			<el-form-item v-for="(item, index) in searchFormConfig.props" :key="index" :label="item.label">
+				<el-input v-if="item.type=='input'" v-model="searchForm[item.prop]" :placeholder="`请输入${item.label}`"
+					clearable></el-input>
+			</el-form-item>
+			<el-form-item>
+				<el-button type="primary" icon="el-icon-search" @click="search(1)">搜索</el-button>
+			</el-form-item>
+		</el-form>
+
+		<el-row :gutter="10" class="mb8">
+			<el-col v-for="(item, index) in toolBarConfig" :key="index" :span="1.5">
+				<el-button plain size="mini" :type="$.obj.isEmpty(item.type)?'primary':item.type" :icon="item.icon"
+					@click="item.click"
+					v-if="($.obj.isEmpty(item.role)||$.auth.checkRole(item.role,false))">{{item.text}}</el-button>
+			</el-col>
+		</el-row>
+
+		<el-table ref="searchResultTable" v-loading="searchResultTableLoading" :data="searchResult" stripe
+			style="width: 100%" tooltip-effect="dark" @selection-change="searchResultSelectionChange">
+			<el-table-column v-if="searchResultTableConfig.multipleSelect" fixed="left" type="selection" width="55">
+			</el-table-column>
+			<el-table-column v-for="(item, index) in searchResultTableConfig.cols" :key="index" :prop="item.prop"
+				:label="item.label" :width="$.obj.isEmpty(item.width)?'':item.width" show-overflow-tooltip>
+				<template slot-scope="scope">
+					<el-image v-if="item.type=='img'" style="width: 100px; height: 100px"
+						:src="$.http.getFileUrl(scope.row[item.prop])"
+						:preview-src-list="[$.http.getFileUrl(scope.row[item.prop])]">
+					</el-image>
+					<span v-else v-text="scope.row[item.prop]"></span>
+				</template>
+			</el-table-column>
+			<el-table-column fixed="right" label="操作" :min-width="100">
+				<template slot-scope="scope">
+					<el-tooltip v-for="(item, index) in searchResultTableConfig.operation" :key="index"
+						v-if="($.obj.isEmpty(item.role)||$.auth.checkRole(item.role,false)) && ($.obj.isEmpty(item.show)||item.show(scope.row))"
+						:content="item.text" placement="top">
+						<el-link :underline="false" :type="$.obj.isEmpty(item.type)?'primary':item.type" size="small"
+							:icon="item.icon" @click="item.click(scope.row)"></el-link>
+					</el-tooltip>
+				</template>
+			</el-table-column>
+		</el-table>
+
+		<el-pagination v-show="pagination.total>0" background @size-change="paginationSizeChange"
+			@current-change="paginationCurrentChange" :current-page="pagination.curPage" :total="pagination.total"
+			:page-size="pagination.pageSize" :page-sizes="pagination.pageSizes" :layout="pagination.layout"
+			:pager-count="pagination.pagerCount">
+		</el-pagination>
+
+
+		<el-dialog :title="editFormParams.title" :visible.sync="editFormParams.show" fullscreen width="600px"
+			append-to-body>
+			<el-form ref="editForm" :model="editForm" :rules="editFormConfig[editFormParams.formName].rules"
+				label-width="80px" v-if="!$.obj.isEmpty(editFormParams.formName)">
+				<el-form-item v-for="(item, index) in editFormConfig[editFormParams.formName].props"
+					v-if="item.type!='param' && ($.obj.isEmpty(item.show) || item.show(editForm))" :key="index"
+					:label="item.label" :prop="item.prop">
+					<el-input :ref="`form_${item.prop}`" v-if="'input'==item.type" v-model="editForm[item.prop]"
+						:placeholder="`请输入${item.label}`" clearable :readonly="editFormParams.readOnly"></el-input>
+					<el-upload :ref="`form_${item.prop}`" v-if="'upload'==item.type"
+						:file-list="editFromFileList[item.prop]" :disabled="editFormParams.readOnly"
+						:action="`${global.backendBaseUrl}api/common/upload`"
+						:headers="{ Authorization: `Bearer ${$.auth.getToken()}` }"
+						:list-type="'pic'==item.params.type?'picture-card':'text'" :multiple="item.params.multiple"
+						:limit="item.params.limit" :accept="item.params.accept"
+						:on-change="editFromUploadFnList[item.prop].formUploadChange"
+						:on-progress="editFromUploadFnList[item.prop].formUploadProgress"
+						:on-remove="editFromUploadFnList[item.prop].formUploadRemove"
+						:on-exceed="editFromUploadFnList[item.prop].formUploadExceed">
+						<i slot="default" class="el-icon-plus"></i>
+					</el-upload>
+				</el-form-item>
+			</el-form>
+			<div slot="footer">
+				<el-button type="primary" @click="save">确 定</el-button>
+				<el-button @click="editFormParams.show=false">取 消</el-button>
+			</div>
+		</el-dialog>
+	</div>
+
+</body>
+
+</html>

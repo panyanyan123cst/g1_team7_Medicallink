@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" href="../../../resources/img/logo.png" />
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<script src="../../../resources/js/jquery-3.5.0.min.js"></script>
+	<script src="../../../resources/js/vue-2.7.14.js"></script>
+	<link rel="stylesheet" href="../../../resources/css/element-ui-2.15.14.css" />
+	<script src="../../../resources/js/element-ui-2.15.14.js"></script>
+	<link rel="stylesheet" href="../../../resources/css/common.css" />
+	<script src="../../../resources/js/common.js"></script>
+	<script src="../../../resources/js/auth.js"></script>
+	<script src="../../../resources/js/utils.js"></script>
+
+	<link rel="stylesheet" href="./css/my.css" />
+	<script src="./js/my.js"></script>
+	<script src="../../../resources/js/formBase.js"></script>
+
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<el-form ref="editForm" :model="editForm" :rules="editFormConfig[editFormParams.formName].rules"
+			label-width="80px" v-if="!$.obj.isEmpty(editFormParams.formName)">
+			<el-form-item v-for="(item, index) in editFormConfig[editFormParams.formName].props"
+				v-if="item.type!='param' && ($.obj.isEmpty(item.show) || item.show(editForm))" :key="index"
+				:label="item.label" :prop="item.prop">
+				<el-input :ref="`form_${item.prop}`" v-if="'input'==item.type" v-model="editForm[item.prop]"
+					:placeholder="editFormParams.readOnly?'':`请输入${item.label}`" clearable
+					:readonly="editFormParams.readOnly || ($.obj.isEmpty(item.readOnly)?false:item.readOnly())"></el-input>
+				<el-input :ref="`form_${item.prop}`" v-if="'textarea'==item.type" v-model="editForm[item.prop]"
+					:placeholder="editFormParams.readOnly?'':`请输入${item.label}`" clearable
+					:readonly="editFormParams.readOnly || ($.obj.isEmpty(item.readOnly)?false:item.readOnly())"
+					type="textarea" :rows="8"></el-input>
+				<el-select :ref="`form_${item.prop}`" v-if="'select'==item.type" v-model="editForm[item.prop]"
+					:placeholder="editFormParams.readOnly?'':`请选择${item.label}`"
+					:disabled="editFormParams.readOnly || ($.obj.isEmpty(item.readOnly)?false:item.readOnly())"
+					clearable filterable>
+					<el-option v-for="(option, optionIndex) in editFromSelectList[item.prop]" :key="optionIndex"
+						:label="option.label" :value="option.value">
+					</el-option>
+				</el-select>
+				<el-switch :ref="`form_${item.prop}`" v-if="'switch'==item.type" v-model="editForm[item.prop]"
+					:disabled="editFormParams.readOnly || ($.obj.isEmpty(item.readOnly)?false:item.readOnly())">
+				</el-switch>
+				<el-upload :ref="`form_${item.prop}`" v-if="'upload'==item.type"
+					:file-list="editFromFileList[item.prop]"
+					:disabled="editFormParams.readOnly || ($.obj.isEmpty(item.readOnly)?false:item.readOnly())"
+					:action="`${global.backendBaseUrl}api/common/upload`"
+					:headers="{ Authorization: `Bearer ${$.auth.getToken()}` }"
+					:list-type="'pic'==item.params.type?'picture-card':'text'" :multiple="item.params.multiple"
+					:limit="item.params.limit" :accept="item.params.accept"
+					:on-change="editFromUploadFnList[item.prop].formUploadChange"
+					:on-progress="editFromUploadFnList[item.prop].formUploadProgress"
+					:on-remove="editFromUploadFnList[item.prop].formUploadRemove"
+					:on-exceed="editFromUploadFnList[item.prop].formUploadExceed">
+					<i slot="default" class="el-icon-plus"></i>
+				</el-upload>
+			</el-form-item>
+		</el-form>
+		<div class="lb-form-btns">
+			<el-button type="primary" @click="save">保 存</el-button>
+		</div>
+	</div>
+
+</body>
+
+</html>

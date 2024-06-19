@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" href="../../../resources/img/logo.png" />
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<script src="../../../resources/js/jquery-3.5.0.min.js"></script>
+	<script src="../../../resources/js/vue-2.7.14.js"></script>
+	<link rel="stylesheet" href="../../../resources/css/element-ui-2.15.14.css" />
+	<script src="../../../resources/js/element-ui-2.15.14.js"></script>
+	<link rel="stylesheet" href="../../../resources/css/common.css" />
+	<script src="../../../resources/js/common.js"></script>
+	<script src="../../../resources/js/auth.js"></script>
+	<script src="../../../resources/js/utils.js"></script>
+
+	<link rel="stylesheet" href="./css/index.css" />
+	<script src="./js/index.js"></script>
+	<script src="../../../resources/js/pageBase.js"></script>
+
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<el-form v-if="!$.obj.isEmpty(searchFormConfig)" size="small" :label-width="searchFormConfig.labelWidth"
+			:inline="true" :model="searchForm">
+			<el-form-item v-for="(item, index) in searchFormConfig.props" :key="index" :label="item.label"
+				v-if="($.obj.isEmpty(item.role)||$.auth.checkRole(item.role,false))">
+				<el-input v-if="'input'==item.type" v-model="searchForm[item.prop]" :placeholder="`请输入${item.label}`"
+					clearable></el-input>
+				<el-select v-if="'select'==item.type" v-model="searchForm[item.prop]" :placeholder="`请选择${item.label}`"
+					clearable filterable>
+					<el-option v-for="(option, optionIndex) in searchFromSelectList[item.prop]" :key="optionIndex"
+						:label="option.label" :value="option.value">
+					</el-option>
+				</el-select>
+			</el-form-item>
+			<el-form-item>
+				<el-button type="primary" icon="el-icon-search" @click="search(1)">搜索</el-button>
+			</el-form-item>
+		</el-form>
+
+		<el-row v-if="!$.obj.isEmpty(toolBarConfig)" :gutter="10" class="mb8">
+			<el-col v-for="(item, index) in toolBarConfig" :key="index" :span="1.5">
+				<el-button plain size="mini" :type="$.obj.isEmpty(item.type)?'primary':item.type" :icon="item.icon"
+					@click="item.click"
+					v-if="($.obj.isEmpty(item.role)||$.auth.checkRole(item.role,false))">{{item.text}}</el-button>
+			</el-col>
+		</el-row>
+
+		<el-table v-if="'list'==($.obj.isEmpty(searchResultTableConfig.type)?'list':searchResultTableConfig.type)"
+			ref="searchResultTable" v-loading="searchResultTableLoading" :data="searchResult" stripe style="width: 100%"
+			tooltip-effect="dark" @selection-change="searchResultSelectionChange">
+			<el-table-column v-if="searchResultTableConfig.multipleSelect" fixed="left" type="selection" width="55"
+				:selectable="searchResultTableSelectable">
+			</el-table-column>
+			<el-table-column v-for="(item, index) in searchResultTableConfig.cols" :key="index" :prop="item.prop"
+				:label="item.label" :width="$.obj.isEmpty(item.width)?'':item.width" show-overflow-tooltip>
+				<template slot-scope="scope">
+					<el-image v-if="item.type=='img'" style="width: 100px; height: 100px"
+						:src="$.file.filesStr2List(scope.row[item.prop])[0]"
+						:preview-src-list="$.file.filesStr2List(scope.row[item.prop])">
+					</el-image>
+					<el-rate v-else-if="item.type=='rate'" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" disabled
+						v-model="scope.row[item.prop]">
+					</el-rate>
+					<span v-else
+						v-html="$.obj.isEmpty(item.format)?scope.row[item.prop]:item.format(scope.row[item.prop],scope.row)"></span>
+				</template>
+			</el-table-column>
+			<el-table-column fixed="right" label="操作" :min-width="100">
+				<template slot-scope="scope">
+					<el-tooltip v-for="(item, index) in searchResultTableConfig.operation" :key="index"
+						v-if="($.obj.isEmpty(item.role)||$.auth.checkRole(item.role,false)) && ($.obj.isEmpty(item.show)||item.show(scope.row))"
+						:content="item.text" placement="top">
+						<el-link :underline="false" :type="$.obj.isEmpty(item.type)?'primary':item.type" size="small"
+							:icon="item.icon" @click="item.click(scope.row)"></el-link>
+					</el-tooltip>
+				</template>
+			</el-table-column>
+		</el-table>
+
+		<el-row v-if="'card'==($.obj.isEmpty(searchResultTableConfig.type)?'list':searchResultTableConfig.type)"
+			class="lb-card-list" :gutter="20" class="mb8">
+
+			<el-col v-for="(row, rowIndex) in searchResult" :key="rowIndex" :span="1.5">
+				<div class="lb-card-list-item">
+					<el-checkbox-group v-model="multipleSelection" class="lb-card-list-item-checkbox-group">
+						<el-checkbox :label="row" v-if="searchResultTableSelectable(row)"><span></span></el-checkbox>
+					</el-checkbox-group>
+					<el-image class="lb-card-list-item-pic" :src="$.file.filesStr2List(row['pic'])[0]"
+						@click="searchResultTableConfig.rowClick(row)">
+					</el-image>
+					<div class="lb-card-list-item-operation">
+						<el-tooltip v-for="(item, index) in searchResultTableConfig.operation" :key="index"
+							v-if="($.obj.isEmpty(item.role)||$.auth.checkRole(item.role,false)) && ($.obj.isEmpty(item.show)||item.show(row))"
+							:content="item.text" placement="top">
+							<el-link :underline="false" :type="$.obj.isEmpty(item.type)?'primary':item.type"
+								size="small" :icon="item.icon" @click="item.click(row)"></el-link>
+						</el-tooltip>
+					</div>
+					<div class="lb-card-list-item-content">
+						<div class="lb-card-list-item-title" v-text="row.title"></div>
+						<div class="lb-card-list-item-user-info">
+							<img class="lb-card-list-item-user-info-avatar"
+								:src="$.http.getFileUrl(row.userAvatar)" />
+							<span class="lb-card-list-item-user-info-name" v-text="row.userName"></span>
+						</div>
+					</div>
+				</div>
+			</el-col>
+		</el-row>
+
+		<el-pagination v-show="pagination.total>0" background @size-change="paginationSizeChange"
+			@current-change="paginationCurrentChange" :current-page="pagination.curPage" :total="pagination.total"
+			:page-size="pagination.pageSize" :page-sizes="pagination.pageSizes" :layout="pagination.layout"
+			:pager-count="pagination.pagerCount">
+		</el-pagination>
+
+
+		<el-dialog :title="editFormParams.title" :visible.sync="editFormParams.show" fullscreen width="600px"
+			append-to-body>
+			<el-form ref="editForm" :model="editForm" :rules="editFormConfig[editFormParams.formName].rules"
+				label-width="80px" v-if="!$.obj.isEmpty(editFormParams.formName)">
+				<el-form-item v-for="(item, index) in editFormConfig[editFormParams.formName].props"
+					v-if="item.type!='param' && ($.obj.isEmpty(item.show) || item.show(editForm))" :key="index"
+					:label="item.label" :prop="item.prop">
+					<el-input :ref="`form_${item.prop}`" v-if="'input'==item.type" v-model="editForm[item.prop]"
+						:placeholder="editFormParams.readOnly?'':`请输入${item.label}`" clearable
+						:readonly="editFormParams.readOnly || ($.obj.isEmpty(item.readOnly)?false:item.readOnly(editForm))"></el-input>
+					<el-input :ref="`form_${item.prop}`" v-if="'textarea'==item.type" v-model="editForm[item.prop]"
+						:placeholder="editFormParams.readOnly?'':`请输入${item.label}`" clearable
+						:readonly="editFormParams.readOnly || ($.obj.isEmpty(item.readOnly)?false:item.readOnly(editForm))"
+						type="textarea" :rows="8"></el-input>
+					<el-select :ref="`form_${item.prop}`" v-if="'select'==item.type" v-model="editForm[item.prop]"
+						:placeholder="editFormParams.readOnly?'':`请选择${item.label}`"
+						:disabled="editFormParams.readOnly || ($.obj.isEmpty(item.readOnly)?false:item.readOnly(editForm))"
+						clearable filterable>
+						<el-option v-for="(option, optionIndex) in editFromSelectList[item.prop]" :key="optionIndex"
+							:label="option.label" :value="option.value">
+						</el-option>
+					</el-select>
+					<el-switch :ref="`form_${item.prop}`" v-if="'switch'==item.type" v-model="editForm[item.prop]"
+						:disabled="editFormParams.readOnly || ($.obj.isEmpty(item.readOnly)?false:item.readOnly(editForm))">
+					</el-switch>
+					<el-rate :ref="`form_${item.prop}`" v-if="'rate'==item.type" v-model="editForm[item.prop]"
+						:colors="['#99A9BF', '#F7BA2A', '#FF9900']"
+						:disabled="editFormParams.readOnly || ($.obj.isEmpty(item.readOnly)?false:item.readOnly(editForm))">
+					</el-rate>
+					<el-upload :ref="`form_${item.prop}`" v-if="'upload'==item.type"
+						:file-list="editFromFileList[item.prop]"
+						:disabled="editFormParams.readOnly || ($.obj.isEmpty(item.readOnly)?false:item.readOnly(editForm))"
+						:action="`${global.backendBaseUrl}api/common/upload`"
+						:headers="{ Authorization: `Bearer ${$.auth.getToken()}` }"
+						:list-type="'pic'==item.params.type?'picture-card':'text'" :multiple="item.params.multiple"
+						:limit="item.params.limit" :accept="item.params.accept"
+						:on-change="editFromUploadFnList[item.prop].formUploadChange"
+						:on-progress="editFromUploadFnList[item.prop].formUploadProgress"
+						:on-remove="editFromUploadFnList[item.prop].formUploadRemove"
+						:on-exceed="editFromUploadFnList[item.prop].formUploadExceed">
+						<i slot="default" class="el-icon-plus"></i>
+					</el-upload>
+				</el-form-item>
+			</el-form>
+			<div slot="footer">
+				<el-button type="primary" @click="save">确 定</el-button>
+				<el-button @click="editFormParams.show=false">取 消</el-button>
+			</div>
+		</el-dialog>
+
+		<div class="detail-dialog" v-if="customData.showDetail">
+			<div class="detail-wrap">
+				<div class="carousel">
+					<el-carousel height="100%" trigger="click" :autoplay="false">
+						<el-carousel-item v-for="(item,index) in $.file.filesStr2List(customData.detail.pic)"
+							:key="index">
+							<!-- <img :src="item" /> -->
+							<el-image :src="item" :initial-index="index"
+								:preview-src-list="$.file.filesStr2List(customData.detail.pic)">
+							</el-image>
+						</el-carousel-item>
+					</el-carousel>
+				</div>
+				<div class="detail">
+					<div class="user-info">
+						<img class="user-info-avatar" :src="$.http.getFileUrl(customData.detail.userAvatar)" />
+						<span class="user-info-name" v-text="customData.detail.userName"></span>
+						<i class="detail-close el-icon-close" @click="hiddenDialog"></i>
+					</div>
+					<div class="content-wrap">
+						<div class="title" v-text="customData.detail.title"></div>
+						<div class="content">
+							<div class="score">
+								<el-rate :colors="['#99A9BF', '#F7BA2A', '#FF9900']" disabled
+									v-model="customData.detail.score">
+								</el-rate>
+							</div>
+							<pre class="desc" v-text="customData.detail.desc"></pre>
+							<div class="time" v-text="customData.detail.createTime"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

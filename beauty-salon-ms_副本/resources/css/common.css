@@ -1,0 +1,178 @@
+[v-cloak] {
+	display: none !important;
+}
+
+body {
+	margin: 0;
+}
+
+div,
+iframe,
+.el-container,
+.el-header,
+.el-aside,
+.el-main {
+	box-sizing: border-box;
+}
+
+.el-main {
+	display: flex;
+	flex-direction: column;
+}
+
+img {
+	display: block;
+	object-fit: cover;
+}
+
+html,
+body {
+	height: 100vh;
+	overflow: auto;
+}
+
+.lb-fill {
+	width: 100%;
+	height: 100%;
+}
+
+.lb-center-all,
+.lb-center-all-col {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.lb-center-all-col {
+	flex-direction: column;
+}
+
+
+.lb-center-form-wrap {
+	width: 100%;
+	height: 100%;
+}
+
+.lb-center-form {
+	width: 600px;
+	padding: 22px 22px 0;
+	border-radius: 10px;
+	background-color: #fff;
+}
+
+.lb-center-form .el-form {
+	width: 100%;
+}
+
+.lb-center-form-title {
+	font-size: 20px;
+	line-height: 20px;
+	height: 20px;
+	font-weight: bold;
+	padding: 15px 0;
+	margin-bottom: 22px;
+}
+
+
+
+.lb-form-btns,
+.lb-center-form-btns .el-form-item__content {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.mb8 {
+	margin-bottom: 8px;
+}
+
+.el-pagination {
+	display: flex;
+	justify-content: end;
+	padding: 20px 0;
+}
+
+.el-link {
+	margin-left: 10px;
+}
+
+.el-link:first-child {
+	margin-left: 0px !important;
+}
+
+.el-rate {
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.lb-card-list-item {
+	width: 219px;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+.lb-card-list-item-checkbox-group{
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	z-index: 100;
+}
+
+.lb-card-list-item-pic {
+	width: 100%;
+	height: 290px;
+	border-radius: 16px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.lb-card-list-item-operation {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.lb-card-list-item-operation .el-link {
+	margin-top: 8px;
+}
+
+.lb-card-list-item-content {
+	padding: 12px;
+}
+
+.lb-card-list-item-title {
+	margin-bottom: 8px;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	-webkit-line-clamp: 1;
+	text-overflow: ellipsis;
+	font-size: 14px;
+	color: rgba(51, 51, 51);
+}
+
+.lb-card-list-item-user-info {
+	display: flex;
+	align-items: center;
+}
+
+.lb-card-list-item-user-info-avatar {
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-right: 6px;
+}
+
+.lb-card-list-item-user-info-name {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	-webkit-line-clamp: 1;
+	text-overflow: ellipsis;
+	font-size: 12px;
+	color: rgba(51, 51, 51, 0.8);
+}
+
+.lb-overflow-hidden {
+	overflow: hidden;
+  }
+  

@@ -2,11 +2,14 @@
 <html>
 <head>
 	
+	
 	<!DOCTYPE html>
 	<html>
 	<head>
 		<img src=https://p16-flow-sign-va.ciciai.com/ocean-cloud-tos-us/b9deeab9429b44c0b1c05968eaa28bac.png~tplv-6bxrjdptv7-image.png?rk3s=18ea6f23&x-expires=1747222530&x-signature=AT5RjDM1DbkmwWh8mVF%2F88%2BSKkE%3D alt="" width="65" height="65"/>
-		
+		<h1>
+		医链
+		</h1>
 	  <style>
 	    .search-box {
 	      width: 200px;
@@ -127,6 +130,100 @@
 	            setTimeout(carousel, 2000); // 每2秒钟改变图片
 	        }
 	    </script>
+		<style>
+		    .product-grid {
+		        display: flex;
+		        flex-wrap: wrap;
+		        gap: 20px;
+		    }
+		    .product-card {
+		        border: 1px solid #ccc;
+		        padding: 20px;
+		        width: calc(33.33% - 40px); /* 分成三列 */
+		    }
+		</style>
+		</head>
+		<style>
+				body {
+				    background-image: url('img/bj1.jpeg');  /* 换成您的图片URL */
+				    background-repeat: no-repeat;  /* 如果您不希望图片重复显示，可以添加这行 */
+				    background-size: cover;  /* 这会让背景图片覆盖整个页面 */
+				}
+			</style>
+		    <title>客服小弹窗</title>
+		    <style>
+		        .chat-popup {
+		          position: fixed;
+		          bottom: 0;
+		          right: 0;
+		          margin-right:15px;
+		          margin-bottom:15px;
+		          border: 1px solid #04AA6D;
+		          background-color: #fff;
+		          border-radius: 5px;
+		          padding: 10px 15px;
+		          display: none;
+		          width: 300px;
+		        }
+		    </style>
+		</head>
+		<body>
+		
+
+		
+		<button onclick="openForm()">客服</button>
+		
+		<div class="chat-popup" id="myForm">
+		  <form action="/action_page.php" class="form-container">
+		    <h1>在线客服</h1>
+		
+		    <label for="msg"><b>消息</b></label>
+		    <textarea placeholder="输入消息.." name="msg" required></textarea>
+		
+		    <button type="submit" class="btn">发送</button>
+		    <button type="button" class="btn cancel" onclick="closeForm()">关闭</button>
+		  </form>
+		</div>
+		
+		<script>
+		function openForm() {
+		  document.getElementById("myForm").style.display = "block";
+		}
+		
+		function closeForm() {
+		  document.getElementById("myForm").style.display = "none";
+		}
+		</script>
+		
+		</body>
+		<body>
+		
+		<h2>商品展示</h2>
+		
+		<div class="product-grid">
+		  <div class="product-card">
+		    <img src="https://via.placeholder.com/150" alt="商品图片" style="width:100%">
+		    <h3>商品1</h3>
+		    <p class="price">￥100</p>
+		    <p>这是商品1的描述...</p>
+		  </div>
+		  <div class="product-card">
+		    <img src="https://via.placeholder.com/150" alt="商品图片" style="width:100%">
+		    <h3>商品2</h3>
+		    <p class="price">￥200</p>
+		    <p>这是商品2的描述...</p>
+		  </div>
+		  <div class="product-card">
+		    <img src="https://via.placeholder.com/150" alt="商品图片" style="width:100%">
+		    <h3>商品3</h3>
+		    <p class="price">￥300</p>
+		    <p>这是商品3的描述...</p>
+		  </div>
+		</div>
+		
+		</body>
+		
+		
 	</body>
 	</html>
 </body>

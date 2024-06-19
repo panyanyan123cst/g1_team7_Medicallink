@@ -1,0 +1,148 @@
+#app {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+html,
+body {
+	height: auto;
+}
+
+.detail-dialog {
+	position: fixed;
+	z-index: 900;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	/* background-color: rgba(50, 50, 50, 0.5); */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.detail-wrap {
+	width: 85%;
+	height: 90%;
+	display: flex;
+	background-color: #fff;
+	border-radius: 20px;
+	overflow: hidden;
+	border: #ebeef5 1px solid;
+	box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+}
+
+.carousel,
+.detail {
+	width: 0;
+	flex-shrink: 0;
+	flex-grow: 1;
+	height: 100%;
+}
+
+.carousel {
+	border-right: #ebeef5 1px solid;
+}
+
+.detail {
+	display: flex;
+	flex-direction: column;
+}
+
+.user-info,
+.content-wrap {
+	flex-shrink: 0;
+}
+
+
+.user-info-avatar,
+.user-info-name,
+.detail-close {
+	flex-shrink: 0;
+}
+
+.user-info {
+	display: flex;
+	padding: 16px;
+	align-items: center;
+}
+
+.detail-close {
+	cursor: pointer;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	font-size: 25px;
+}
+
+.user-info-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.user-info-name {
+	margin-left: 12px;
+	font-size: 16px;
+	color: rgba(51, 51, 51, 0.8);
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	-webkit-line-clamp: 1;
+	text-overflow: ellipsis;
+	width: 0;
+	flex-grow: 1;
+}
+
+.content-wrap {
+	padding: 0 16px 16px;
+	height: 0;
+	flex-grow: 1;
+	overflow: hidden;
+	overflow-y: auto;
+}
+
+.title {
+	margin-bottom: 8px;
+	color: rgb(51, 51, 51);
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.score {
+	margin-bottom: 8px;
+}
+
+.desc {
+	color: rgb(51, 51, 51);
+	font-size: 16px;
+	width: 100%;
+	white-space: pre-wrap;
+	font-family: inherit;
+}
+
+
+.time {
+	margin-top: 12px;
+	color: rgb(51, 51, 51, 0.6);
+	font-size: 14px;
+}
+
+.carousel .el-carousel {
+	width: 100%;
+	height: 100%;
+}
+
+.carousel .el-image {
+	width: 100%;
+	height: 100%;
+}
+
+.carousel img {
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+}
